@@ -1,4 +1,9 @@
 # udemy-javascript-course
+
+link to the budget app project: https://brave-elion-af8463.netlify.com/
+
+link to dice game: https://quirky-heyrovsky-cf33e9.netlify.com/
+
 Rules for the Dice Game:
 - The game has 2 players, playing in rounds
 - In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
