@@ -6,54 +6,67 @@ GAME RULES:
 - BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
-
 */
 
-var scores, roundScore, activePlayer;
+var scores, roundScore, activePlayer, gamePlaying;
 
-scores = [0,0];
-roundScore = 0;
-activePlayer = 0;
-
-//You can change the styles in JS, here we are hiding the dice picture:
-document.querySelector('.dice').style.display = 'none';
-
-//set the initial scores to 0
-document.getElementById('score-0').textContent = '0'; 
-document.getElementById('score-1').textContent = '0'; 
-document.getElementById('current-0').textContent = '0'; 
-document.getElementById('current-1').textContent = '0';
+init();
 
 /*when someone clicks on the .btn roll class an anonomous function 
-(a function with noi name) will be executed*/  
+(a function with no name) will be executed*/  
 document.querySelector('.btn-roll').addEventListener('click', function() {
+	if(gamePlaying) {
 
-	//1. generate a Random whole number between 1 and 6 
-	dice = Math.floor(Math.random() * 6) + 1;
+		//1. generate a Random whole number between 1 and 6 
+		dice = Math.floor(Math.random() * 6) + 1;
 
-	//2. Display the result (show the relavent dice picture)
-	var diceDom = document.querySelector('.dice');
-	diceDom.style.display = 'block';
-	diceDom.src = 'dice-' + dice + '.png';
+		//2. Display the result (show the relavent dice picture)
+		var diceDom = document.querySelector('.dice');
+		diceDom.style.display = 'block';
+		diceDom.src = 'dice-' + dice + '.png';
 
-	//3. Update the current score IF the rolled number was NOT a 1
-	if (dice !== 1) {
-		//Add score 
-		roundScore += dice;
-		document.querySelector('#current-' + activePlayer).textContent = roundScore;
-	} else {
-		//Else next player and....
-
-		/*This is the normal way of writing an if statement:
-		if(activePlayer === 0) {
-			activePlayer = 1;
+		//3. Update the current score IF the rolled number was NOT a 1
+		if (dice !== 1) {
+			//Add score 
+			roundScore += dice;
+			document.querySelector('#current-' + activePlayer).textContent = roundScore;
 		} else {
-			activePlayer = 0;
+			//Else next player 
+			nextPlayer();
 		}
-		*/
+	}
+});
 
-		//This is the same if statement: 
-		activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+document.querySelector('.btn-hold').addEventListener('click', function () {
+	if (gamePlaying) {
+
+		//Add current score to Global score 
+		scores[activePlayer] += roundScore;
+
+		//Update the UI
+		//This is a getter - it gets a value
+	    // var x = document.querySelector('#score-0').textContent;
+		//This is a setter - it sets a value
+	    // document.querySelector('#current-0' + activePlayer).textContent = dice;
+	    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+		// Check if player won the game
+		if (scores[activePlayer] >= 50 ) {
+			document.querySelector('#name-' + activePlayer).textContent = 'Winner';
+			document.querySelector('.dice').style.display = 'none';
+			document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+			document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+			gamePlaying = false;
+		} else {
+			//Next Player
+			nextPlayer();
+		} 
+	}
+});
+
+function nextPlayer() {
+	//Next Player
+	activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
 
 		//reset the current score to 0
 		roundScore = 0;
@@ -70,29 +83,31 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
 		// hide the dice when the player changes 
 		document.querySelector('.dice').style.display = 'none';
-
 	}
 
-});
+document.querySelector('.btn-new').addEventListener('click', init);
 
-document.querySelector('.btn-hold').addEventListener('click', function () {
-	//Add current score to Global score 
-	scores[activePlayer] += roundScore;
+function init() {
+	scores = [0, 0];
+	activePlayer = 0;
+	roundScore = 0;
+	gamePlaying = true;
 
-	//Update the UI
-	document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+	//You can change the styles in JS, here we are hiding the dice picture:
+	document.querySelector('.dice').style.display = 'none';
 
-	// Check if player won the game
+	//set the initial scores to 0
+	document.getElementById('score-0').textContent = '0'; 
+	document.getElementById('score-1').textContent = '0'; 
+	document.getElementById('current-0').textContent = '0'; 
+	document.getElementById('current-1').textContent = '0';
+	document.getElementById('name-0').textContent = 'Player 1'; 
+	document.getElementById('name-1').textContent = 'Player 2';
+	document.querySelector('.player-0-panel').classList.remove('winner');
+	document.querySelector('.player-1-panel').classList.remove('winner');
+	document.querySelector('.player-0-panel').classList.remove('active');
+	document.querySelector('.player-1-panel').classList.remove('active');
+	document.querySelector('.player-0-panel').classList.add('active');
+}
 
-	if (scores[activePlayer] <= 100 ) {
-		//you won the game!!!
-	} 
 
-});
-
-
-//This is a setter - it sets a value
-// document.querySelector('#current-0' + activePlayer).textContent = dice;
-
-//This is a getter - it gets a value
-// var x = document.querySelector('#score-0').textContent;
