@@ -243,7 +243,7 @@
 
 //////////////////////
 //The spread operator
-//This is used to expand elements of an array
+//This is used to break down an array into it's individual values. 
 
 // function addFourAges(a, b, c, d) {
 // 	return a + b + c + d;
@@ -274,10 +274,97 @@
 
 
 //and on nodes and node lists:
-const h = document.querySelector('h1');
-const boxes = document.querySelectorAll('.box');
-const all = [h, ...boxes]; 
-console.log(all); //This will return a node list.
+// const h = document.querySelector('h1');
+// const boxes = document.querySelectorAll('.box');
+// const all = [h, ...boxes]; 
+// console.log(all); //This will return a node list.
+
+// Array.from(all).forEach(cur => cur.style.color = 'purple');
+
+//////////////////////
+//rest parameters 
+//This does the opposite of the spread operator- the spread operator takes an array and converts it into single values. The rest parameter takes single values and transforms them into an array when we call a function with an unknown amount of parameters. 
+//It has the same syntax as the spread operator.
+//note: The arguments keyword is somthing that we always have access to, it outputs the parameters passed to a function in an array-like structure.
+
+//ES5
+// function isFullAge5() {
+// 	console.log(arguments);// will output the arguments variable, which contains 1990, 1999, 1965
+// 	//in order to transform arguments to an array:
+// 	var argsArr = Array.prototype.slice.call(arguments);
+// 	argsArr.forEach(function(cur) {
+// 		console.log((2016 - cur) >= 18);// this will output true or false for all seven dates.
+// 	})
+// }
+
+// isFullAge5(1990, 1999, 1965);
+// isFullAge5(1980,1970,1997,1985);
+
+//ES6
+//The big difference between the spread operator and the rest parameter is where we use them (spread is used in the function call and rest in the function declaration)
+// function isFullAge6(...years) {
+// 	years.forEach(cur => console.log((2016 - cur) >=18));// will output true or false for each date.
+// }
+
+// isFullAge6(1990, 1999, 1965);
+
+//to add a second parameter:
+//ES5
+// function isFullAge5(limit) {
+// 	var argsArr = Array.prototype.slice.call(arguments, 1);
+// 	argsArr.forEach(function(cur) {
+// 		console.log((2016 - cur) >= limit);// this will output true or false for all seven dates using '16' as the limit.
+// 	})
+// }
+
+// isFullAge5(16, 1990, 1999, 1965);
+
+
+//ES6
+// function isFullAge6(limit, ...years) {
+// 	years.forEach(cur => console.log((2016 - cur) >=limit));// will output true or false for each date using '16' as limit.
+// }
+
+// isFullAge6(16, 1990, 1999, 1965);
+
+//////////////////////////
+//default parameters
+//if you want to specify default parameters for a function constructor
+
+//ES5
+// function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+// 	lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+// 	nationality === undefined ? nationality = 'English' : nationality = nationality;
+
+// 	this.firstName = firstName;
+// 	this.yearOfBirth = yearOfBirth;
+// 	this.lastName = lastName;
+// 	this.nationality = nationality;
+// }
+
+// var john = new SmithPerson('John', 1990); // the default prameters wil be applied for lastName and country
+// var emily = new SmithPerson('Emily', 1983, 'Diaz', 'Spanish'); // diaz and spanish will overwrite the defaults.
+
+//ES6
+// function SmithPerson (firstName, yearOfBirth, lastName = 'Smith', nationality = 'English') {
+// 	this.firstName = firstName;
+// 	this.yearOfBirth = yearOfBirth;
+// 	this.lastName = lastName;
+// 	this.nationality = nationality;
+// }
+
+// var john = new SmithPerson('John', 1990);
+// var emily = new SmithPerson('Emily', 1983, 'Diaz', 'Spanish');
+
+//////////////////////
+//maps
+
+
+
+
+
+
+
 
 
 
