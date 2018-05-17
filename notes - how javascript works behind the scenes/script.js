@@ -106,31 +106,31 @@ function calculateAge(year) {
 }
 */
 
-var john = {
-    name: 'John',
-    yearOfBirth:1990,
-    calculateAge: function() {
-        console.log(this); //will console log the john object because it is a method.
-        function innerFunction() {
-            console.log(this);//will console log the window because it isn't a method.
-        }
-        innerFunction();
-    }
-}
+// var john = {
+//     name: 'John',
+//     yearOfBirth:1990,
+//     calculateAge: function() {
+//         console.log(this); //will console log the john object because it is a method.
+//         function innerFunction() {
+//             console.log(this);//will console log the window because it isn't a method.
+//         }
+//         innerFunction();
+//     }
+// }
 
-john.calculateAge();
+// john.calculateAge();
 
 
 //method borrowing 
 //The this keyword is only assigned a value when an object calls a method.
-var mike = {
-    name: 'Mike',
-    yearOfBirth:1984
-};
+// var mike = {
+//     name: 'Mike',
+//     yearOfBirth:1984
+// };
 
-mike.calculateAge = john.calculateAge;
+// mike.calculateAge = john.calculateAge;
 
-mike.calculateAge();
+// mike.calculateAge();
 
 
 
