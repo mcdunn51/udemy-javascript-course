@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Asynchronous JavaScript</title>
+</head>
+<body>
+    <h1>Asynchronous JavaScript</h1>
+    <script>
+//Asynchronous code - when it's not executed in the order it's written
+//This code will console log hey there, the end and then asynchronous 
+//Pass in call backs that run once the function has finished it's work
+//The code is never blocked so it can keep going line by line. 
+		// const second = () => {
+		// 	setTimeout(() => {
+		// 		console.log('Asynchronous');
+		// 	}, 2000);
+		// }
+
+		// const first = () => {
+		// 	console.log('Hey there');
+		// 	second();
+		// 	console.log('The end');
+		// }
+////////////////////////
+//The event loop
+//Functions like setTimeout, DOM events and XMLHttpRequest, live outside the javascript engine - we have access to these because they're in the JavaScript runtime (the web APIs environment). When we call setTimeout and pass it a call back function, the setTime out function and it's call back function move out of the execution stack and run in the web APIs environment. When setTimeOut has finished, the call back function moves to the message que where it waits to be executed when the execution stack is empty.
+//The event loop takes the call back functions from the message que and puts them on the execution stack when it is empty. 
+//With DOM events, it's the same - they listen in the web APIs environment and then when somthing happens, they send a cll back function to the message que.
+
+///////////////////////////
+//The old way: Asynchronous JavaScript with callbacks
+
+//Call back hell - when you have call backs within call backs within......
+//promises were developed to prevent this.
+
+///////////////////////////
+//Call back hell to promises
+//promise - an object that keeps track of whether a certain event has happened already or not. They determine what happens after the event has happened.
+// promise states:
+// 			- pending 
+// 			- resolved
+// 			- then either fulfilled or rejected
+
+//The callback function passed into a promise is called the executer. It takes two arguments which are the callback functions resolve and reject.
+//note: these set time out functions are used to simulate data coming back from a server.
+//in the resolve function we put what we the data that we want to return if the promise is successful. Because the promise is successful i.e. the setTimeOut function works, the resolve function will return the array and mark the promise as fulfilled.
+//promise objects inherit two methods: then and catch
+//if the promise is fulfilled it triggets the .then method. We pass this a callback function which always takes the value returned by the promise as an argument.
+//If this function didn't work then reject would be called and this would trigger the .catch method.
+
+  const getIDs = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve([523, 883, 432, 974]);
+            }, 1500);
+        });
+
+        const getRecipe = recID => {
+            return new Promise((resolve, reject) => {
+                setTimeout(ID => {
+                    const recipe = {title: 'Fresh tomato pasta', publisher: 'Jonas'};
+                    resolve(`${ID}: ${recipe.title}`);
+                }, 1500, recID);
+            });
+        };
+
+        const getRelated = publisher => {
+            return new Promise((resolve, reject) => {
+                setTimeout(pub => {
+                    const recipe = {title: 'Italian Pizza', publisher: 'Jonas'};
+                    resolve(`${pub}: ${recipe.title}`);
+                }, 1500, publisher);
+            });
+        };
+//Consuming the promises:
+        // getIDs
+        // .then(IDs => {
+        //     console.log(IDs);
+        //     return getRecipe(IDs[2]);
+        // })
+//This is the key bit, you can use a .then after a .then:
+        // .then(recipe => {
+        //     console.log(recipe);
+        //     return getRelated('Jonas Schmedtmann');
+        // })
+        // .then(recipe => {
+        //     console.log(recipe);
+        // })
+        // .catch(error => {
+        //     console.log('Error!!');
+        // });
+
+/////////////////////////
+//from promises to Async/await
+//This is an easier way to consume promises.
+//the async keyword tells the function to run asyncronously
+//The await keyword stops the code from running i.e. prevents a value being assigned to IDs until the getIDs function is resolved.
+//When it is resolved the await keyword becomes the value returned from the getIDs function.  
+async function getRecipesAW() {
+	const IDs = await getIDs;
+	console.log(IDs);
+}
+getRecipesAW();
+
+
+
+
+
+    </script>
+</body>
+</html>
