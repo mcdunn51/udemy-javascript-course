@@ -51,29 +51,29 @@
 //if the promise is fulfilled it triggets the .then method. We pass this a callback function which always takes the value returned by the promise as an argument.
 //If this function didn't work then reject would be called and this would trigger the .catch method.
 
-  const getIDs = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve([523, 883, 432, 974]);
-            }, 1500);
-        });
+  // const getIDs = new Promise((resolve, reject) => {
+  //           setTimeout(() => {
+  //               resolve([523, 883, 432, 974]);
+  //           }, 1500);
+  //       });
 
-        const getRecipe = recID => {
-            return new Promise((resolve, reject) => {
-                setTimeout(ID => {
-                    const recipe = {title: 'Fresh tomato pasta', publisher: 'Jonas'};
-                    resolve(`${ID}: ${recipe.title}`);
-                }, 1500, recID);
-            });
-        };
+  //       const getRecipe = recID => {
+  //           return new Promise((resolve, reject) => {
+  //               setTimeout(ID => {
+  //                   const recipe = {title: 'Fresh tomato pasta', publisher: 'Jonas'};
+  //                   resolve(`${ID}: ${recipe.title}`);
+  //               }, 1500, recID);
+  //           });
+  //       };
 
-        const getRelated = publisher => {
-            return new Promise((resolve, reject) => {
-                setTimeout(pub => {
-                    const recipe = {title: 'Italian Pizza', publisher: 'Jonas'};
-                    resolve(`${pub}: ${recipe.title}`);
-                }, 1500, publisher);
-            });
-        };
+  //       const getRelated = publisher => {
+  //           return new Promise((resolve, reject) => {
+  //               setTimeout(pub => {
+  //                   const recipe = {title: 'Italian Pizza', publisher: 'Jonas'};
+  //                   resolve(`${pub}: ${recipe.title}`);
+  //               }, 1500, publisher);
+  //           });
+  //       };
 //Consuming the promises:
         // getIDs
         // .then(IDs => {
@@ -97,12 +97,52 @@
 //This is an easier way to consume promises.
 //the async keyword tells the function to run asyncronously
 //The await keyword stops the code from running i.e. prevents a value being assigned to IDs until the getIDs function is resolved.
+//An async function always returns a promise
+//await can only be used inside an async function.
 //When it is resolved the await keyword becomes the value returned from the getIDs function.  
-async function getRecipesAW() {
-	const IDs = await getIDs;
-	console.log(IDs);
-}
-getRecipesAW();
+// async function getRecipesAW() {
+// 	const IDs = await getIDs;
+// 	console.log(IDs);
+//     const recipe = await getRecipe(IDs[2]);
+//     console.log(recipe);
+//     const related = await getRelated('Jonas Schmedtmann');
+//     console.log(related);
+
+//     return recipe;
+// }
+
+// const rec = getRecipesAW();
+// console.log(rec) // this won't work, because the async function is still running.
+
+// //To fix this, because an async function always returns a promise we can do:
+// getRecipesAW().then(result => console.log(`${result} is the best ever`));
+
+///////////////////////
+//Ajax and APIs
+//Asynchronous JavaScript and XML - it aallows us to communicate with remote servers or more specifically the API on either your own, or a third party server.
+//So we can send a HTTP request (GET, POST etc) and get the data back without re-rendering the page.
+
+/////////////////////////////
+//AJAX calls with fetch requests and promises 
+//JSON is a text based data format which is similar to JS objects. The difference is JSON is just a single string and not an entire object within the JS engine. 
+//The API returns JSON and we can then convert this into a JavaScript object.
+//The below fetch code will throw an error 'NO access code .......' This is because of the JavaScript same origin policy which prevents us making AJAX requests to domains different to our own.
+//To get around this, CORS (cross origin resourse sharing) was developed. The developers that have the server on which the API is that we're requesting data from need to have cors enabled on their server.
+//If CORS in not on the third party server you can get around this by running the AJAX request to your own server as we don't have our own server, crossorigin.me is software that allows you to get data from other sites.  
+
+
+//The fetch API gets the data and returns a promise.
+//Can therefore use .then and catch methods
+fetch('https://crossorigin.me/https://www.metaweather.com/api/location/44418/');
+.then(result => {
+    console.log(result);
+});
+.catch(error => console.log(error));
+
+//When you get body: readable stream returned
+
+
+
 
 
 
