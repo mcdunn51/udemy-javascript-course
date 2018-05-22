@@ -133,13 +133,50 @@
 
 //The fetch API gets the data and returns a promise.
 //Can therefore use .then and catch methods
-fetch('https://crossorigin.me/https://www.metaweather.com/api/location/44418/');
-.then(result => {
-    console.log(result);
-});
-.catch(error => console.log(error));
+//When you get body: readable stream returned it means you need to convert it to JS
+//converting to JS happens asynchronously and so also returns a promise.
+function getWeather(location) {
+    fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${location}/`);
+    .then(result => {
+        console.log(result);
+        return result.json();
+    });
+    .then(data => {
+        console.log(data);
+        const today = data.consolidated_weather[0];
+        console.log(`today the weather was good to start with and is now really shit ${data.title} for example ${today.min_temp}`);
+    })
+    .catch(error => console.log(error));
+}
 
-//When you get body: readable stream returned
+getWeather(44418);
+
+//////////////////////////////////
+//ajax calls with fetch and async/await
+//when handling errors with async await you can't use the .catch method so instead use a try catch statement.
+
+async function getWeatherAW(location) {
+    try {
+    const result = await fetch(`https://crossorigin.me/https://www.metaweather.com/api/location/${location}/`);
+    const data = await result.json();
+    const tomorrow = data.consolidated_weather[1];
+    console.log(`temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}.`);
+    return data;
+    } catch (error) {
+        alert(error);
+    }
+}
+getWeather(44418);
+
+let dataLondon;
+getWeatherAW(44418).then(data => {
+    dataLondon = data
+    console.log(dataLondon);
+});
+
+
+
+ 
 
 
 
