@@ -1,0 +1,26 @@
+//In order to make use of ES6 modules which make the code easier to maintain. Some browsers don't support this yet and so we need to use Webpack to bundle them into one file.
+//webpack and babel are npm packages
+//node.js is an environment in which you can run JS server side. 
+//NPM - node package manager (you get this when you download node.js)
+//npm init - creates a package.json file in your project
+//npm install e.g. npm install webpack --save-dev (the save dev tells it to install webpack as a devDependency of the project).
+//two types of node.js packages - librarys/frame works and development tools. Webpack is a development tool whearas, somthing like react is a dependency.  
+//to save somthing as a dependency e.g. react just add --save on the end e.g. npm install jquery --save
+//npm install takes the packges listed in the package.json file and goes and gets them
+//To uninstall - npm uninstall jquery --save
+
+/////////////////////////
+//configuring webpack
+
+//webpack also bundles css and images.
+//create a webpack.config.js file
+//do npm install webpack cli --save-dev (this allows us to run the scripts specified in package.json in the command line).
+//to run an npm script - npm run. e.g. npm run dev
+
+////////////////////////
+//Webpack development server (i.e. realtime updating)
+
+// Webpack 4 has two modes - development and production. Development runs faster. specify these in scripts.
+// The src folder is for development only
+// The dist folder contains what the user will see  
+
