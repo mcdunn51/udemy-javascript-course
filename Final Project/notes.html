@@ -16,11 +16,22 @@
 //create a webpack.config.js file
 //do npm install webpack cli --save-dev (this allows us to run the scripts specified in package.json in the command line).
 //to run an npm script - npm run. e.g. npm run dev
+//webpack has entry points, outputs, loaders and plugins.
 
 ////////////////////////
-//Webpack development server (i.e. realtime updating)
-
+//webpack development server
+// Webpack development server is a dependency that allows realtime updating. --open keeps it updated when you change a file. 
 // Webpack 4 has two modes - development and production. Development runs faster. specify these in scripts.
 // The src folder is for development only
-// The dist folder contains what the user will see  
+// The dist folder contains what the user will see
+// plugins - allow us to do complicated processing of our input files - plugins do whatever you can't do with a loader.
+// html-webpack-plugin allows us to pass the html from the src folder ("the source html") into a new file within dist. 
+
+////////////////////////
+//Babel
+
+//babel is a compiler 
+//installed three packages: babel-core, babel-preset-env and babel-loader
+/Loaders are transformations that are applied on the source code of a module. They allow you to pre-process files as you import or “load” them e.g. changing sass into css.
+//babel needs a config file - normally called .babelrc 
 
