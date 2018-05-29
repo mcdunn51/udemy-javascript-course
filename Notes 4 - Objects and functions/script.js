@@ -138,11 +138,76 @@ console.log(obj.city); //will log San Francisco
 ///////////////////////////
 //First Class Functions: passing functions as arguments
 
+//functions are first-class objects, because they can have properties and methods just like any other object. What distinguishes them from other objects is that functions can be called.
+
 // a function is an instance of the object type;
 // a function behaves like any other object;
 // we can store functions in a variable;
 // we can pass a function as an argument to another function
 // we can return a function from a function
+
+// a callback function is a function that you pass into another function
+
+var years = [1990, 1965, 1937, 2005, 1998];
+
+functionn arrayCalc(arr, fn) {
+	var arrRes = [];
+	for (var i = 0; i < arr.length; i++) {
+		arrRes.push(fn(arr[i]));             //here the calculate age function is called (as a callback function) with the first element of the array as an argument 
+	}
+	return arrRes;
+} 
+
+function calculateAge(el) {
+	return 2016 - el;
+}
+
+function isAdult(el) {
+	return el >= 18;
+}
+
+var ages = arrayCalc(years, calculateAge);
+var adult = arrayCalc(years, isAdult); 
+console.log(ages); 
+console.log(fullAges);
+
+////////////////////////
+//first class functions: functions returning functions
+
+//The below makes use of a generic function from which you can then use more specific functions i.e. once you found out their profession you could ask more specific questions. 
+
+function interviewQuestion(job) {
+	if (job === 'designer') {
+		return function (name) {
+			console.log (name + ', can you please explain what UX design is?');
+		}
+	} else if (job === 'teacher') {
+		return function (name) {
+			console.log (name + ', what subject do you teach?')
+		}
+	} else {
+		return function (name) {
+			console.log ('what do you do' + name + '?');
+		}
+	}
+}
+
+var teacherQuestion = interviewQuestion(teacher); //the anonomous function then becomes the value of teacherQuestion. So we can then call the anonomous function:
+
+teacherQuestion('John');
+
+//you could also do:
+
+interviewQuestion('teacher')('Mark');
+
+/////////////////////////
+//Immediately invoked function expressions (IIFE):
+
+// a way of creating data privacy
+
+
+
+
 
 
 

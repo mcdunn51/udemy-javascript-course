@@ -359,6 +359,63 @@
 //////////////////////
 //maps
 
+//maps are a new key- value data structure 
+// with objects we can only use strings as the key, in maps we can use numbers, functions etc
+
+const question = new Map();
+question.set('question', 'What is the official name of the latest major JavaScript version?'); 
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set('correct', 3);
+question.set(true, 'correct answer');
+question.set(false, 'wrong, please try again');
+
+console.log(question); // outputs an object with the above key value pairs
+
+//to retreve data use .get
+console.log(question.get('question'));
+//to check the size:
+console.log(question.size); // 7
+//to delete:
+question.delete(4);// deletes key 4.
+// use .has to see if a certain key is present
+if(question.has(4)) {
+	question.delete(4);
+} 
+//to delete everything from the map
+question.clear();
+
+//maps are iterable - you can loop through them (you can't do this with objects)
+question.forEach((key, value) => 
+	console.log(`This is the ${key} and this is the ${value}`));
+
+//the for...of loop:
+//question.entries returns all of the key value pairs for the map object.
+for (let [key, value] of question.entries()) {
+	if (typeof(key) === 'number') {
+		console.log('answer ${key}:${value}');
+	}
+}
+
+//instead of an if else statement:
+//you can't do this with objects
+
+const ans = parseInt(prompt('Wite the correct answer'));
+console.log(question.get(ans === question.get('correct')));//get true key if they are equal, get false key if not.
+
+//hashmaps are key value pairs
+//maps are better than objects for creating hashmaps for a number of reasons: 
+//              - you can use anything as the key
+//				- maps are iterable - you can loop through them
+//				- you can get the  size of a map using the .size function
+// 				- can easily add and remove data from a map
+
+///////////////////////
+// classes
+
+
+
 
 
 
