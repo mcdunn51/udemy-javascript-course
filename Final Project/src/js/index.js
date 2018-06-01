@@ -1,18 +1,39 @@
-// Global app controller
-//21b235db7631a50c6e8f947b9ee51f78
-//webpack knows where to find the dependencies.
-import axios from 'axios';
+// The controller
+import search from './models/Search';
+import * as searchView from './views/searchView';
+import {elements} from './views/base';
 
-async function getResults(query) {
-	// 
-	const proxy = 'https://cors-anywhere.herokuapp.com/';
-	const key = '21b235db7631a50c6e8f947b9ee51f78';
-	try {
-		const result = await axios(`${proxy}http://food2fork.com/api/search?key=${key}&q=${query}`);
-		const recipes = result.data.recipes;
-		console.log(recipes);
-	} catch(e) {
-		alert (e);
+//Global state of the app
+// search object 
+// current recipe object
+// shopping list object
+// Liked recipes
+const state = {};
+
+
+const controlSearch = async () => {
+// 1) Get query from view
+	const query = searchView.getInput();
+
+	if (query) {
+		// 2) new search object and add to state
+		state.search = new Search(query);
+
+		// 3) prepare UI for results
+		searchView.clearInput();
+		searchView.clearResults();
+
+		// 4) search for recipies 
+		await state.search.getResults();//remember that every asnyc function returns a promise
+
+		// 5) render results on UI
+		searchView.renderResults(state.search.result);
+
 	}
 }
-getResults('pizza');
+
+
+document.querySelector('.search').addEventListener('submit', e=> {
+	e.preventDefault();//stops the page reloading
+	controlSearch();//don't put all the logic in this callback function create a new function
+});

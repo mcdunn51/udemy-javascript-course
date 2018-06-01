@@ -3765,10 +3765,9 @@ eval("var g;\r\n\r\n// This works in non-strict mode\r\ng = (function() {\r\n\tr
   !*** ./src/js/index.js ***!
   \*************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-eval("// Global app controller\n\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("throw new Error(\"Module build failed: C:/Users/mattd/Documents/Coding/udemy JS course/Final Project/src/js/index.js: Duplicate declaration \\\"search\\\"\\n\\n\\u001b[0m \\u001b[90m 38 | \\u001b[39m})\\u001b[33m;\\u001b[39m\\n \\u001b[90m 39 | \\u001b[39m\\n\\u001b[31m\\u001b[1m>\\u001b[22m\\u001b[39m\\u001b[90m 40 | \\u001b[39m\\u001b[36mconst\\u001b[39m search \\u001b[33m=\\u001b[39m \\u001b[36mnew\\u001b[39m \\u001b[33mSearch\\u001b[39m(\\u001b[32m'pizza'\\u001b[39m)\\u001b[33m;\\u001b[39m\\n \\u001b[90m    | \\u001b[39m      \\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\n \\u001b[90m 41 | \\u001b[39msearch\\u001b[33m.\\u001b[39mgetResults()\\u001b[33m;\\u001b[39m\\u001b[0m\\n\");\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
