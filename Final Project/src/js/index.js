@@ -1,7 +1,7 @@
 // The controller
-import search from './models/Search';
+import Search from './models/Search';
 import * as searchView from './views/searchView';
-import {elements} from './views/base';
+import {elements, renderLoader, clearLoader} from './views/base';
 
 //Global state of the app
 // search object 
@@ -22,13 +22,15 @@ const controlSearch = async () => {
 		// 3) prepare UI for results
 		searchView.clearInput();
 		searchView.clearResults();
+		renderLoader(elements.searchRes);
+
 
 		// 4) search for recipies 
 		await state.search.getResults();//remember that every asnyc function returns a promise
 
 		// 5) render results on UI
+		clearLoader();
 		searchView.renderResults(state.search.result);
-
 	}
 }
 
